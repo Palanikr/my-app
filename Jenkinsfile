@@ -4,8 +4,8 @@ node{
    }
    stage('Compile-Package'){
 
-      def antHome =  tool name: 'ant1', type: 'ant'   
-      sh "${antHome}/bin/ant clean package"
+      def mvnHome =  tool name: 'maven3', type: 'maven'   
+      sh "${mvnHome}/bin/mvn clean package"
 	  sh 'mv target/myweb*.war target/newapp.war'
    }
    stage('SonarQube Analysis') {
