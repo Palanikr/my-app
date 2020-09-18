@@ -14,16 +14,16 @@ node{
 	          sh "${mvnHome}/bin/mvn sonar:sonar"
 	        }
 	    }
-   stage('Build Docker Image'){
+   stage('Docker Build'){
    sh 'docker build -t palanikumar7/myweb:0.0.2 .'
    }
-   stage('Docker Image Push'){
+   stage('Docker Push'){
    withCredentials([string(credentialsId: 'dockerPass', variable: 'dockerPassword')]) {
    sh "docker login -u palanikumar7 -p ${dockerPassword}"
     }
    sh 'docker push palanikumar7/myweb:0.0.2'
    }
-   stage('Nexus Image Push'){
+   stage('Nexus Push'){
    sh "docker login -u admin -p admin123 18.232.50.103:8083"
    sh "docker tag palanikumar7/myweb:0.0.2 18.232.50.103:8083/palani:1.0.0"
    sh 'docker push 18.232.50.103:8083/palani:1.0.0'
