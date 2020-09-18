@@ -2,7 +2,7 @@ node{
    stage('GIT Checkout'){
      git 'https://github.com/palanikr/my-app.git'
    }
-   stage('Maven'){
+   stage('Maven Build'){
 
       def mvnHome =  tool name: 'maven3', type: 'maven'   
       sh "${mvnHome}/bin/mvn clean package"
