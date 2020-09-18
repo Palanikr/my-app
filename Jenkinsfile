@@ -1,8 +1,8 @@
 node{
-   stage('SCM Checkout'){
+   stage('GIT Checkout'){
      git 'https://github.com/palanikr/my-app.git'
    }
-   stage('Compile-Package'){
+   stage('Maven'){
 
       def mvnHome =  tool name: 'maven3', type: 'maven'   
       sh "${mvnHome}/bin/mvn clean package"
@@ -14,7 +14,7 @@ node{
 	          sh "${mvnHome}/bin/mvn sonar:sonar"
 	        }
 	    }
-   stage('Build Docker Imager'){
+   stage('Build Docker Image'){
    sh 'docker build -t palanikumar7/myweb:0.0.2 .'
    }
    stage('Docker Image Push'){
@@ -34,7 +34,7 @@ node{
 	}catch(error){
 		//  do nothing if there is an exception
 	}
-   stage('Docker deployment'){
+   stage('Docker deploy'){
    sh 'docker run -d -p 8090:8080 --name tomcattest palanikumar7/myweb:0.0.2' 
    }
 }
